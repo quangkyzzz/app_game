@@ -5,6 +5,8 @@ import android.text.Layout;
 import android.util.DisplayMetrics;
 import android.util.TimeUtils;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -122,16 +124,20 @@ public class PlayingActivity extends AppCompatActivity implements View.OnClickLi
         for (int i=0; i<20; i++){
             if (checkOpen.get(i) == 1 ){
                 if ( mImageList.get(i).equals(mImageList.get(poss)) ){
+                    Animation anima = (Animation) AnimationUtils.loadAnimation(this, R.anim.rotate);
                     ImageButton mButton = (ImageButton) findViewById(mButtonList.get(i));
+                    mButton.setAnimation(anima);
                     mButton.setVisibility(View.INVISIBLE);
                     mButton.setClickable(false);
 
                     mButton = (ImageButton) findViewById(mButtonList.get(poss));
+                    mButton.setAnimation(anima);
                     mButton.setVisibility(View.INVISIBLE);
                     mButton.setClickable(false);
                     checkOpen.set(i,0);
                     return true;
                 }
+                else return false;
             }
         }
         return false;
@@ -141,6 +147,7 @@ public class PlayingActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         int poss = mButtonList.indexOf(v.getId());
         ImageButton mButton;
+
 
 
         if (checkOpen.get(poss) == 1) {
@@ -153,7 +160,7 @@ public class PlayingActivity extends AppCompatActivity implements View.OnClickLi
                 count++;
                 checkOpen.set(poss, 1);
             }
-            if (count == 1){
+            else if (count == 1){
                 if (!checkScored(poss)){
                     count++;
                     checkOpen.set(poss,1);
