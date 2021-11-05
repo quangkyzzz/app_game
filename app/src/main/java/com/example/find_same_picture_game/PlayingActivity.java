@@ -23,11 +23,36 @@ public class PlayingActivity extends AppCompatActivity {
 
         //EditText mytext = (EditText) findViewById(R.id.text1);
         //mytext.setText(Integer.toString(screenHeight));
-        LinearLayout mLayout = (LinearLayout)  findViewById(R.id.firstRow);
-        RelativeLayout.LayoutParams mPagrams = (RelativeLayout.LayoutParams) mLayout.getLayoutParams();
+        LinearLayout Layout1 = (LinearLayout)  findViewById(R.id.firstRow);
+        RelativeLayout.LayoutParams mPagrams = (RelativeLayout.LayoutParams) Layout1.getLayoutParams();
         mPagrams.height = screenWidth/4;
         mPagrams.width = screenWidth;
-        mLayout.setLayoutParams(mPagrams);
+        Layout1.setLayoutParams(mPagrams);
+
+        LinearLayout Layout2 = (LinearLayout) findViewById(R.id.secondRow);
+        mPagrams = (RelativeLayout.LayoutParams) Layout2.getLayoutParams();
+        mPagrams.height = screenWidth/4;
+        mPagrams.width = screenWidth;
+        Layout2.setLayoutParams(mPagrams);
+
+        LinearLayout Layout3 = (LinearLayout) findViewById(R.id.thirdRow);
+        mPagrams = (RelativeLayout.LayoutParams) Layout3.getLayoutParams();
+        mPagrams.height = screenWidth/4;
+        mPagrams.width = screenWidth;
+        Layout3.setLayoutParams(mPagrams);
+
+        LinearLayout Layout4 = (LinearLayout) findViewById(R.id.fourthRow);
+        mPagrams = (RelativeLayout.LayoutParams) Layout4.getLayoutParams();
+        mPagrams.height = screenWidth/4;
+        mPagrams.width = screenWidth;
+        Layout4.setLayoutParams(mPagrams);
+
+        LinearLayout Layout5 = (LinearLayout) findViewById(R.id.fifthRow);
+        mPagrams = (RelativeLayout.LayoutParams) Layout5.getLayoutParams();
+        mPagrams.height = screenWidth/4;
+        mPagrams.width = screenWidth;
+        Layout5.setLayoutParams(mPagrams);
+
 
 
     }
