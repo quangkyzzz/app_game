@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,7 +26,10 @@ public class PlayingActivity extends AppCompatActivity implements View.OnClickLi
     public  ArrayList<Integer> mImageList = new ArrayList<Integer>();
     public  ArrayList<Integer> mButtonList = new ArrayList<Integer>();
     public  int count;
+    Integer score=0;
+    Integer complete=0;
     public  ArrayList<Integer> checkOpen = new ArrayList<Integer>();
+    public  EditText mytext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
@@ -36,8 +40,7 @@ public class PlayingActivity extends AppCompatActivity implements View.OnClickLi
         int screenHeight = myDisplaymetrics.heightPixels;
         int screenWidth = myDisplaymetrics.widthPixels;
 
-        //EditText mytext = (EditText) findViewById(R.id.text1);
-        //mytext.setText(Integer.toString(screenHeight));
+
         LinearLayout Layout1 = (LinearLayout)  findViewById(R.id.firstRow);
         RelativeLayout.LayoutParams mPagrams = (RelativeLayout.LayoutParams) Layout1.getLayoutParams();
         mPagrams.height = screenWidth/4;
@@ -112,6 +115,10 @@ public class PlayingActivity extends AppCompatActivity implements View.OnClickLi
         mButtonList.add(R.id.button53);
         mButtonList.add(R.id.button54);
 
+        mytext = (EditText) findViewById(R.id.text1);
+
+        //Collections.shuffle(mImageList);
+
         count=0;
         for (int i=0; i<20; i++){
             checkOpen.add(0);
@@ -135,6 +142,11 @@ public class PlayingActivity extends AppCompatActivity implements View.OnClickLi
                     mButton.setVisibility(View.INVISIBLE);
                     mButton.setClickable(false);
                     checkOpen.set(i,0);
+                    complete++;
+                    if (complete==10) {
+                        DialogFragment endDialog = new Mdialog();
+                        endDialog.show(getSupportFragmentManager(),"tag");
+                    }
                     return true;
                 }
                 else return false;
@@ -162,10 +174,15 @@ public class PlayingActivity extends AppCompatActivity implements View.OnClickLi
             }
             else if (count == 1){
                 if (!checkScored(poss)){
+                    score--;
+                    if (score < 0) score=0;
+                    mytext.setText("score:"+score.toString());
                     count++;
                     checkOpen.set(poss,1);
                 }
                 else{
+                    score+=10;
+                    mytext.setText("score:"+score.toString());
                     count=0;
                 }
 
