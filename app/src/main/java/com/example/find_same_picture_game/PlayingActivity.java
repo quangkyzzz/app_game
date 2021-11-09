@@ -145,6 +145,9 @@ public class PlayingActivity extends AppCompatActivity implements View.OnClickLi
                     complete++;
                     if (complete==10) {
                         DialogFragment endDialog = new Mdialog();
+                        Bundle mBundle = new Bundle();
+                        mBundle.putInt("score",score);
+                        endDialog.setArguments(mBundle);
                         endDialog.show(getSupportFragmentManager(),"tag");
                     }
                     return true;

@@ -3,4 +3,6 @@
     <string name="start_button">Bắt đầu</string>
     <string name="continue_button">Chơi lại</string>
     <string name="exit_button">Thoát</string>
+    <string name="congratulation">Chúc mừng bạn đã chiến thắng</string>
+    <string name="score_message">Số điểm của bạn: </string>
 </resources>
