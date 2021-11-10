@@ -11,5 +11,9 @@
         <item name="android:background">@drawable/question_button_state_list</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">0dp</item>
+        <item name="android:visibility">visible</item>
+        <item name="android:clickable">true</item>
     </style>
+
+
 </resources>

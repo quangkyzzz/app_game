@@ -1,13 +1,10 @@
 package com.example.find_same_picture_game;
 
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.DisplayMetrics;
-import android.util.TimeUtils;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -17,9 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.concurrent.TimeUnit;
 
 public class PlayingActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -29,7 +23,7 @@ public class PlayingActivity extends AppCompatActivity implements View.OnClickLi
     Integer score=0;
     Integer complete=0;
     public  ArrayList<Integer> checkOpen = new ArrayList<Integer>();
-    public  EditText mytext;
+    public  TextView mytext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
@@ -37,7 +31,6 @@ public class PlayingActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_playing);
         DisplayMetrics myDisplaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(myDisplaymetrics);
-        int screenHeight = myDisplaymetrics.heightPixels;
         int screenWidth = myDisplaymetrics.widthPixels;
 
 
@@ -115,7 +108,7 @@ public class PlayingActivity extends AppCompatActivity implements View.OnClickLi
         mButtonList.add(R.id.button53);
         mButtonList.add(R.id.button54);
 
-        mytext = (EditText) findViewById(R.id.text1);
+        mytext = (TextView) findViewById(R.id.text1);
 
         //Collections.shuffle(mImageList);
 
@@ -143,13 +136,6 @@ public class PlayingActivity extends AppCompatActivity implements View.OnClickLi
                     mButton.setClickable(false);
                     checkOpen.set(i,0);
                     complete++;
-                    if (complete==10) {
-                        DialogFragment endDialog = new Mdialog();
-                        Bundle mBundle = new Bundle();
-                        mBundle.putInt("score",score);
-                        endDialog.setArguments(mBundle);
-                        endDialog.show(getSupportFragmentManager(),"tag");
-                    }
                     return true;
                 }
                 else return false;
@@ -187,6 +173,13 @@ public class PlayingActivity extends AppCompatActivity implements View.OnClickLi
                     score+=10;
                     mytext.setText("score:"+score.toString());
                     count=0;
+                    if (complete==10) {
+                        DialogFragment endDialog = new Mdialog();
+                        Bundle mBundle = new Bundle();
+                        mBundle.putInt("score",score);
+                        endDialog.setArguments(mBundle);
+                        endDialog.show(getSupportFragmentManager(),"tag");
+                    }
                 }
 
             }
@@ -209,4 +202,5 @@ public class PlayingActivity extends AppCompatActivity implements View.OnClickLi
 
         }
     }
+
 }
