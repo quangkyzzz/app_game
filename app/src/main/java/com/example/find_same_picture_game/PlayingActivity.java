@@ -14,8 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
-public class PlayingActivity extends AppCompatActivity implements View.OnClickListener {
+public class PlayingActivity extends AppCompatActivity implements View.OnClickListener, Mdialog.ClickListener {
 
     public  ArrayList<Integer> mImageList = new ArrayList<Integer>();
     public  ArrayList<Integer> mButtonList = new ArrayList<Integer>();
@@ -23,7 +24,7 @@ public class PlayingActivity extends AppCompatActivity implements View.OnClickLi
     Integer score=0;
     Integer complete=0;
     public  ArrayList<Integer> checkOpen = new ArrayList<Integer>();
-    public  TextView mytext;
+    public  TextView scoretext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
@@ -108,16 +109,14 @@ public class PlayingActivity extends AppCompatActivity implements View.OnClickLi
         mButtonList.add(R.id.button53);
         mButtonList.add(R.id.button54);
 
-        mytext = (TextView) findViewById(R.id.text1);
+        scoretext = (TextView) findViewById(R.id.text1);
 
-        //Collections.shuffle(mImageList);
+        Collections.shuffle(mImageList);
 
         count=0;
         for (int i=0; i<20; i++){
             checkOpen.add(0);
         }
-
-
     }
 
     public Boolean checkScored(int poss){
@@ -149,8 +148,6 @@ public class PlayingActivity extends AppCompatActivity implements View.OnClickLi
         int poss = mButtonList.indexOf(v.getId());
         ImageButton mButton;
 
-
-
         if (checkOpen.get(poss) == 1) {
             mButton = (ImageButton) findViewById(mButtonList.get(poss));
         }
@@ -165,13 +162,13 @@ public class PlayingActivity extends AppCompatActivity implements View.OnClickLi
                 if (!checkScored(poss)){
                     score--;
                     if (score < 0) score=0;
-                    mytext.setText("score:"+score.toString());
+                    scoretext.setText("score:"+score.toString());
                     count++;
                     checkOpen.set(poss,1);
                 }
                 else{
                     score+=10;
-                    mytext.setText("score:"+score.toString());
+                    scoretext.setText("score:"+score.toString());
                     count=0;
                     if (complete==10) {
                         DialogFragment endDialog = new Mdialog();
@@ -181,9 +178,7 @@ public class PlayingActivity extends AppCompatActivity implements View.OnClickLi
                         endDialog.show(getSupportFragmentManager(),"tag");
                     }
                 }
-
             }
-
         }
         else {
             for (int i=0; i<20; i++){
@@ -203,4 +198,31 @@ public class PlayingActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    public void resetState(){
+        ImageButton mButton;
+        for (int i=0; i<20; i++){
+            mButton = (ImageButton) findViewById(mButtonList.get(i));
+            mButton.setClickable(true);
+            mButton.setVisibility(View.VISIBLE);
+            mButton.setBackgroundResource(R.drawable.question_button_state_list);
+            checkOpen.set(i,0);
+        }
+        count=0;
+        score=0;
+        complete=0;
+        scoretext.setText("score:0");
+        Collections.shuffle(mImageList);
+    }
+
+    @Override
+    public void onMyClick(String message) {
+        if (message == "continue") {
+            resetState();
+        }
+        else if (message == "exit"){
+            finish();
+        }
+
+
+    }
 }

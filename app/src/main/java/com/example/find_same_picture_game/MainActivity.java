@@ -21,7 +21,14 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(view.getContext(), PlayingActivity.class);
                 startActivity(intent);
             }
+        });
 
+        Button exitButton = findViewById(R.id.exitButton);
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
         });
     }
 }

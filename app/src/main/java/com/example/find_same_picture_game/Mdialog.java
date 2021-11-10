@@ -1,10 +1,13 @@
 package com.example.find_same_picture_game;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.OnNmeaMessageListener;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +20,11 @@ public class Mdialog extends DialogFragment {
 
     public TextView mText1;
     public TextView mText2;
+    ClickListener mClickListener;
+
+    public interface ClickListener{
+        public  void onMyClick(String message);
+    }
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -27,6 +35,8 @@ public class Mdialog extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog,null);
 
         builder.setView(view);
+
+
 
         Bundle mBundle = getArguments();
         Integer score = mBundle.getInt("score");
@@ -42,19 +52,31 @@ public class Mdialog extends DialogFragment {
         builder.setPositiveButton(R.string.continue_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //Intent intent = new Intent(getView().getContext(), PlayingActivity.class);
-                //startActivity(intent);
+                String message = "continue";
+                mClickListener.onMyClick(message);
             }
         });
         builder.setNegativeButton(R.string.exit_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //Intent intent = new Intent(getView().getContext(), MainActivity.class);
-                //startActivity(intent);
+                String message = "exit";
+                mClickListener.onMyClick(message);
             }
         });
 
 
         return builder.create();
+    }
+
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+
+        Activity activity = (Activity) context;
+        try{
+            mClickListener = (ClickListener) activity;
+        }catch (ClassCastException e){
+            throw new ClassCastException((activity.toString()+" must override OnMessageRead..."));
+        }
     }
 }
